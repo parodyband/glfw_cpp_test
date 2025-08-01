@@ -1,6 +1,6 @@
 {
     // Default settings for Linux and macOS, which can find g++ in the PATH.
     "clangd.arguments": [
-        "--query-driver=C:/PATH/TO/YOUR/gcc/bin/g++.exe"
+        "--query-driver=C:/Users/AustinCrane-Work/scoop/apps/gcc/current/bin/g++.exe"
     ],
 }
