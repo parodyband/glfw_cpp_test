@@ -10,6 +10,12 @@ if(NOT CMAKE_BUILD_TYPE)
   message(STATUS "No build type specified, defaulting to ${CMAKE_BUILD_TYPE}")
 endif()
 
+# Set output directories based on build type
+string(TOLOWER ${CMAKE_BUILD_TYPE} build_folder)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build/${build_folder})
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build/${build_folder})
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build/${build_folder})
+
 # Set build-type-specific flags.
 # -g: include debug information
 # -O3: optimization level
@@ -32,10 +38,13 @@ FetchContent_Declare(
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_SHARED OFF CACHE BOOL "" FORCE)
 
 FetchContent_MakeAvailable(glfw)
 
 find_package(OpenGL REQUIRED)
+
+set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++")
 
 include_directories(${CMAKE_SOURCE_DIR}/include)
 file(GLOB SOURCES "src/*.cpp")
